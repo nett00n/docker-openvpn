@@ -16,12 +16,12 @@ source "$OPENVPN/ovpn_env.sh"
 nopass=$1
 
 # Provides a sufficient warning before erasing pre-existing files
-easyrsa init-pki
+easyrsa init-pki $nopass
 
 # CA always has a password for protection in event server is compromised. The
 # password is only needed to sign client/server certificates.  No password is
 # needed for normal OpenVPN operation.
-easyrsa build-ca $nopass
+echo "${VPNServerName}" | easyrsa build-ca $nopass
 
 easyrsa gen-dh
 openvpn --genkey --secret $EASYRSA_PKI/ta.key

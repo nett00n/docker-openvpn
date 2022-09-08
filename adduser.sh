@@ -15,8 +15,8 @@ mkdir ./userconfigs -p
 test -f ./userconfigs/${1}.ovpn && \
   echo User ${1} already exists && \
   exit 1
-docker-compose run server easyrsa build-client-full ${1} nopass
-docker-compose run server ovpn_getclient ${1} > ./userconfigs/${1}.ovpn
+docker-compose exec server easyrsa build-client-full ${1} nopass
+docker-compose exec server ovpn_getclient ${1} > ./userconfigs/${1}.ovpn
 test -z "${TelegramToken}" && \
   echo "Telegram token is not set. Create your bot with https://t.me/BotFather" && \
   FailToSend ${1}
